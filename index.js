@@ -4,8 +4,11 @@ const express = require('express');
 const passport = require('passport');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const bodyParser = require('body-parser');
 
 const app = express();
+
+app.use(bodyParser.json())
 
 app.use(session({
     secret: "secret",
@@ -46,7 +49,7 @@ app.get("/profile", (req, res) => {
     res.send(`Welcome ${req.user.displayName}`);
 });
 
-app.get("/logout", (req, res) => {
+app.get("/logout", (req, res) => {  
     req.logout(() => {
         res.redirect("/");
     });
